@@ -6,6 +6,13 @@ export OPENAI_API_KEY="YOUR_KEY"
 
 export OPENAI_MODEL="gpt-4.1-mini"
 
+## Libraries
+pip install -r requirements.txt
+
+or
+
+conda create -n mcg python=3.11 "pydantic=2.8.*" "fastapi=0.115.*" "uvicorn=0.30.*" "pandas=2.2.*" "numpy=1.26.*" "python-dateutil=2.9.*" "requests=2.32.*" -c conda-forge -y
+
 ## Project files
 commentary_schema.py
 
