@@ -13,11 +13,15 @@ conda create -n mcg python=3.11 "pydantic=2.8.*" "fastapi=0.115.*" "uvicorn=0.30
 
 pip install "openai>=1.30,<2"
 
+conda activate mcg
+
 OR
 
 pip install -r requirements.txt
 
 ## Project files
+Check following exists under root directory
+
 commentary_schema.py
 
 ingest_normalize.py
