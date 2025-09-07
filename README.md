@@ -1,4 +1,9 @@
 # Setup
+## Clone this Repo
+Go to the repo's root directory in terminal
+
+Save an .env file in follwoing format
+
 ## Sample .env
 ALPHAVANTAGE_API_KEY="YOUR_KEY"
 
@@ -40,6 +45,15 @@ http://localhost:8000/app
 ### You may also download results by command like
 python cli_generate.py --period "Q2 2025" --market_region "U.S. equities (small-cap)" --benchmark "Russell 2000"
 
+## Run the API - Alternative Docker Deployment
+
+To deploy locally using docker, give following commands. Note that we aren't deploying to a public domain. 
+
+docker build -t market-context-ai:local . 
+
+docker run --rm -p 8000:8000 --env-file .env market-context-ai:local
+
+Then visit http://localhost:8000/app
 
 # The Problem I Tackled (and Why)
 
