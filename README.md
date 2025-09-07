@@ -1,10 +1,10 @@
 # Setup
-## Env vars
-export ALPHAVANTAGE_API_KEY="YOUR_KEY"
+## Sample .env
+ALPHAVANTAGE_API_KEY="YOUR_KEY"
 
-export OPENAI_API_KEY="YOUR_KEY"
+OPENAI_API_KEY="YOUR_KEY"
 
-export OPENAI_MODEL="gpt-4.1-mini"
+OPENAI_MODEL="gpt-4.1-mini"
 
 ## Libraries
 Recommended
@@ -71,13 +71,14 @@ I set out to automate the "Market Context" section of monthly or quarterly portf
 ## Prompt 1
 My task is to design and implement a solution to streamline or automate the creation of portfolio commentaries for the latest month or quarter similar to the previous commentaries. For this assignment, focus solely on the Market Context section. Attached are 3 examples from US Equity Fund, All Cap Core portfolio and Genesis fund.
 
-Below is my thoughts on workflow to do this using data provider APIs (Alphavantage, Databento) and OpenAI APIs 
+**Below is my thoughts on workflow to do this using data provider APIs (Alphavantage, Databento) and OpenAI APIs** 
 
 Frameworks we can use are Python, FastAPI and Flask 
 
 Inputs from user would be Period (Q or custom date range) Market region (so we know which benchmark/ETF to map) 
 ### Workflow
 Ingest & normalize
+
 Pull macro series (CPI, policy rate, 10y yield, FX, HY spreads), benchmark total return, sector returns, factor/style stats, notable events.
 
 Map each feed into the JSON schema below.
@@ -85,6 +86,7 @@ Map each feed into the JSON schema below.
 Validate Required:
 
 period, benchmark, and at least one of benchmark_return_total_pct or a qualitative market move. 
+
 Numeric sanity checks (e.g., return is between -100 and +100). Strip fund-specific tokens from inputs (reject sentences containing: \b(we|our|the fund|portfolio|overweight|underweight|selection|allocation)\b). 
 
 Assemble prompt 
@@ -96,6 +98,7 @@ Generate (LLM call)
 Output must start with ## Market Context.
 
 150–250 words; 2–3 paragraphs.
+
 System / Developer message (rules)
 
 You are an investment commentator. Write the Market Context for the specified period. Use only the data in INPUT. Do not mention the fund, portfolio, “we/our,” positioning, allocation, or stock selection. If a data point is missing, write “not provided.” Do not invent numbers. Keep tone factual, concise, and client-friendly. Deliverable Return one section titled “## Market Context”, 150–250 words, 2–3 paragraphs: Macro & policy: inflation, rates, growth, FX/credit, notable policy/geopolitics. Market behavior: index return, volatility, sector trends, factor/style rotation, market breadth/concentration. 
@@ -156,6 +159,7 @@ For macroeconomic parts, I mostly get similar output (...) for Equity, Emerging 
 
 We can actually get other available macroeconomic data from alpha vantage https://www.alphavantage.co/documentation/
 https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey=demo
+
 US Dollar to Japanese Yen:
 https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=demo
 
@@ -165,6 +169,7 @@ https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=
 https://www.alphavantage.co/query?function=ALL_COMMODITIES&interval=monthly&apikey=demo
 
 For geopolitical events, we can use proxy of Alpha intelligence on alphavantage - Like Querying news articles that simultaneously mention the Coinbase stock (COIN), Bitcoin (CRYPTO:BTC), and US Dollar (FOREX:USD) and are published on or after 2022-04-10, 1:30am UTC.
+
 https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=COIN,CRYPTO:BTC,FOREX:USD&time_from=20220410T0130&limit=1000&apikey=demo
 https://www.alphavantage.co/query?function=REAL_GDP&interval=annual&apikey=demo
 
