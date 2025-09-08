@@ -60,6 +60,7 @@ Then visit http://localhost:8000/app
 I set out to automate the "Market Context" section of monthly or quarterly portfolio commentaries. The idea was to pull macro and benchmark data, normalize it into a strict schema, and use a large language model (LLM) to write a 150–250 word section that’s region-specific, strictly factual (no made-up numbers), and avoids any fund-specific or attribution terms. This helps remove a tedious bottleneck, and also makes the market commentary more consistent and compliant.
 
 # Architecture and Design Decisions
+![Architecture Diagram](Overview.png)
 
 - **Schema-first Gatekeeper (Pydantic v2):** I used a schema with strict validators for required fields, numeric bounds, special placeholders (like “not provided”), and language filters to make sure certain words like “we”, “our”, and portfolio-specific jargon didn’t sneak in.
 - **Data Ingestion Layer:** There are Alpha Vantage adapters set up to pull CPI, Fed Funds, 10Y UST, GDP (YoY), unemployment rates, FX (region-specific pairs), commodities; and for benchmarks, ETF proxies (e.g., Russell 2000 → IWM).
